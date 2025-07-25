@@ -11,8 +11,6 @@ A Python script that collects flight data using the Amadeus API for multiple tra
 - 🗄️ Optionally exports CSV data to SQLite database (`database.db`)
 - 📈 Provides data analysis and statistics
 - 🔄 Automatic rate limiting to respect API limits
-- 📝 Comprehensive logging
-- 🧹 Clean, efficient, comment-free code
 
 ## Travel Routes
 
