@@ -23,9 +23,9 @@ class FlightDataCollector:
         self.collected_flights = []
         self.routes = [
             {"origin": "MAD", "destination": "BCN", "route_name": "Madrid to Barcelona"},
-            #{"origin": "JFK", "destination": "LAX", "route_name": "New York to Los Angeles"},
-            #{"origin": "BER", "destination": "PAR", "route_name": "Berlin to Paris"},
-            #{"origin": "LON", "destination": "SFO", "route_name": "London to San Francisco"},
+            {"origin": "JFK", "destination": "LAX", "route_name": "New York to Los Angeles"},
+            {"origin": "BER", "destination": "PAR", "route_name": "Berlin to Paris"},
+            {"origin": "LON", "destination": "SFO", "route_name": "London to San Francisco"},
         ]
     
     def _initialize_amadeus_client(self) -> Client:
@@ -100,10 +100,10 @@ class FlightDataCollector:
     
     def collect_flight_data(self, start_date: Optional[str] = None):
         start_dt = datetime.strptime('2025-08-01', '%Y-%m-%d')
-        logger.info(f"Starting flight data collection for 4 days from 2025-08-01 to 2025-08-04")
+        logger.info(f"Starting flight data collection for 32 days from 2025-08-01 to 2025-09-01")
         for route in self.routes:
             logger.info(f"Collecting data for route: {route['route_name']}")
-            for day_offset in range(4):
+            for day_offset in range(32):
                 current_date = start_dt + timedelta(days=day_offset)
                 date_str = current_date.strftime('%Y-%m-%d')
                 logger.info(f"Searching flights for {route['origin']} to {route['destination']} on {date_str}")
@@ -163,13 +163,13 @@ def main():
     try:
         collector = FlightDataCollector()
         
-        print("=== HUVTSP ROVER Flight Data Collector ===")
+        print("=== HUVTSP ROVE Flight Data Collector ===")
         print("This script will collect flight data from Amadeus API for predefined routes.")
         print("\nRoutes to be searched:")
         for i, route in enumerate(collector.routes, 1):
             print(f"{i}. {route['route_name']} ({route['origin']} → {route['destination']})")
         
-        response = input(f"\nDo you want to start collecting flight data for the next 3 days? (y/n): ")
+        response = input(f"\nDo you want to start collecting flight data for the next 32 days? (y/n): ")
         
         if response.lower() in ['y', 'yes']:
             collector.collect_flight_data()
