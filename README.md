@@ -22,7 +22,11 @@ The script collects data for these routes:
 
 ## Date Range
 
-- The script collects flight data for **2025-08-01** through **2025-08-04** (inclusive) for each route.
+- The script collects flight data for **2025-08-01** through **2025-08-04** for each route.
+
+## Data
+
+- **On a testing environment, all retrieved data is not real. If real data is needed, applying for the production environment in Amadeus is necessary.**
 
 ## Setup Instructions
 
@@ -74,18 +78,16 @@ Total flights collected: 12
 
 === FLIGHTS BY ROUTE ===
                         price_amount                
-                              count    min     max   mean
-route_name             price_currency                        
-Madrid to Barcelona    EUR           3   45.0   90.0  60.00
-New York to Los Angeles USD         4  120.0  350.0  200.00
+route_name             currency    count  min    max    mean                
+Madrid to Barcelona      EUR         3    45.0   90.0   60.00
+New York to Los Angeles  USD         4    120.0  350.0  200.00
 ...
 
 === TOP AIRLINES BY FLIGHT COUNT ===
-                price_amount         
-                      count   mean
-airline_name                     
-Delta Air Lines         4   210.00
-American Airlines       3   180.00
+            price_amount         
+airline_name          count    mean       
+Delta Air Lines         4     210.00
+American Airlines       3     180.00
 ...
 ```
 
@@ -99,6 +101,7 @@ American Airlines       3   180.00
 ## Notes
 
 - Data collection is limited by the Amadeus sandbox environment for free accounts
+- **On a testing environment, all retrieved data is not real. If real data is needed, applying for the production environment in Amadeus is necessary.**
 - The script is designed to be run multiple times safely (prevents duplicates in the CSV/SQL)
 - All times are in UTC as provided by Amadeus API
 - The code is now clean, efficient, and free of comments for maximum clarity and performance 
