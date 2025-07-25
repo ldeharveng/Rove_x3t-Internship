@@ -1,27 +1,30 @@
 # HUVTSP ROVER - Flight Data Collector
 
-A Python script that collects flight data using the Amadeus API for multiple travel routes and stores the data in a SQLite database.
+A Python script that collects flight data using the Amadeus API for multiple travel routes and stores the data in a CSV file. Optionally, you can export the CSV data to a local SQLite database.
 
 ## Features
 
 - ✈️ Connects to Amadeus API to fetch real-time flight data
-- 🗺️ Pre-configured with 6 international travel routes
+- 🗺️ Pre-configured with multiple international travel routes
 - 📊 Collects comprehensive flight information (prices, airlines, times, dates)
-- 💾 Stores data in SQLite database with duplicate prevention
+- 💾 Stores data in a CSV file (no SQL by default)
+- 🗄️ Optionally exports CSV data to SQLite database (`database.db`)
 - 📈 Provides data analysis and statistics
-- 📋 Exports data to CSV for further analysis
 - 🔄 Automatic rate limiting to respect API limits
 - 📝 Comprehensive logging
+- 🧹 Clean, efficient, comment-free code
 
 ## Travel Routes
 
 The script collects data for these routes:
-1. **NYC to Shanghai** (JFK → PVG)
-2. **Hong Kong to Taipei** (HKG → TPE)
-3. **Praia to Recife** (RAI → REC)
-4. **Paris to Tokyo** (CDG → HND)
-5. **Toronto to Seattle** (YYZ → SEA)
-6. **Los Angeles to Chicago** (LAX → ORD)
+1. **Madrid to Barcelona** (MAD → BCN)
+2. **New York to Los Angeles** (JFK → LAX)
+3. **Berlin to Paris** (BER → PAR)
+4. **London to San Francisco** (LON → SFO)
+
+## Date Range
+
+- The script collects flight data for **2025-08-01** through **2025-08-04** (inclusive) for each route.
 
 ## Setup Instructions
 
@@ -49,87 +52,55 @@ python main.py
 
 ## What the Script Does
 
-1. **Initialization**: Connects to Amadeus API and sets up SQLite database
-2. **Data Collection**: For each route, searches flights for 30 consecutive days
-3. **Data Storage**: Saves flight details to SQLite database
+1. **Initialization**: Connects to Amadeus API
+2. **Data Collection**: For each route, searches flights for 2025-08-01 to 2025-08-04
+3. **Data Storage**: Saves flight details to a CSV file (`flight_data_export.csv`)
 4. **Analysis**: Provides statistics about collected data
-5. **Export**: Creates CSV file with all collected data
-
-## Collected Data Points
-
-For each flight, the script collects:
-- Route information (origin, destination, route name)
-- Flight timing (departure/arrival dates and times)
-- Airline details (code, name, flight number)
-- Pricing (amount and currency)
-- Aircraft information
-- Flight characteristics (duration, stops, booking class)
-- Availability (seats available)
-- Collection timestamp
-
-## Database Schema
-
-The SQLite database includes a `flights` table with:
-- Unique constraints to prevent duplicates
-- Indexed fields for efficient querying
-- Comprehensive flight information storage
+5. **Optional SQL Export**: Converts the CSV file to a SQLite database (`database.db`)
 
 ## Output Files
 
-- `flight_data.db` - SQLite database with all flight data
 - `flight_data_export.csv` - CSV export of all data
+- `database.db` - SQLite database (if you choose to export)
 - `flight_data_collection.log` - Detailed execution log
 
-## Rate Limiting
+## Optional: Export CSV to SQLite
 
-The script includes automatic rate limiting:
-- 1-second delay between individual API calls
-- 2-second delay between different routes
-- Respects Amadeus API guidelines
-
-## Error Handling
-
-- Comprehensive error logging
-- Graceful handling of API errors
-- Duplicate data prevention
-- Network timeout protection
-
-## Usage Tips
-
-1. **First Run**: Start with a small date range to test your API credentials
-2. **API Limits**: Free Amadeus accounts have monthly quotas - monitor your usage
-3. **Data Analysis**: Use the built-in statistics or export to CSV for external analysis
-4. **Scheduling**: Consider running the script daily to build a comprehensive dataset
+After the CSV is generated, the script will automatically convert it to a SQLite database (`database.db`) with a table named `flight_data_sql`.
 
 ## Example Output
 
 ```
 === FLIGHT DATA STATISTICS ===
-Total flights collected: 1,247
+Total flights collected: 12
 
 === FLIGHTS BY ROUTE ===
-route_name              flight_count  min_price  max_price  avg_price  price_currency
-NYC to Shanghai         234          456.78     2134.56    987.45     USD
-Hong Kong to Taipei     198          123.45     567.89     234.56     USD
+                        price_amount                
+                              count    min     max   mean
+route_name             price_currency                        
+Madrid to Barcelona    EUR           3   45.0   90.0  60.00
+New York to Los Angeles USD         4  120.0  350.0  200.00
 ...
 
 === TOP AIRLINES BY FLIGHT COUNT ===
-airline_name           flight_count  avg_price
-Delta Air Lines        145          789.23
-United Airlines        132          856.78
+                price_amount         
+                      count   mean
+airline_name                     
+Delta Air Lines         4   210.00
+American Airlines       3   180.00
 ...
 ```
 
 ## Troubleshooting
 
 - **API Errors**: Check your credentials in `.env` file
+- **Sandbox Limitations**: The Amadeus sandbox only supports a limited set of routes and dates. If you get a 400 error, try a different route or date.
 - **Network Issues**: Script includes retry logic for temporary failures
-- **Database Errors**: Delete `flight_data.db` to reset database
 - **Missing Dependencies**: Run `pip install -r requirements.txt`
 
 ## Notes
 
-- Data collection for 30 days across 6 routes may take 3-6 minutes
-- Free Amadeus API accounts have usage limits
-- Script is designed to be run multiple times safely (prevents duplicates)
-- All times are in UTC as provided by Amadeus API 
+- Data collection is limited by the Amadeus sandbox environment for free accounts
+- The script is designed to be run multiple times safely (prevents duplicates in the CSV/SQL)
+- All times are in UTC as provided by Amadeus API
+- The code is now clean, efficient, and free of comments for maximum clarity and performance 
