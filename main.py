@@ -99,7 +99,6 @@ class FlightDataCollector:
         return parsed_flights
     
     def collect_flight_data(self, start_date: Optional[str] = None):
-        # Always use 2025-08-01 to 2025-08-04
         start_dt = datetime.strptime('2025-08-01', '%Y-%m-%d')
         logger.info(f"Starting flight data collection for 4 days from 2025-08-01 to 2025-08-04")
         for route in self.routes:
@@ -155,17 +154,9 @@ class FlightDataCollector:
         return filename
 
 def export_to_sql(filename):
-    import pandas as pd
-    import sqlite3
-    csv_file = filename
-    df = pd.read_csv(csv_file)
-    print("Read file using pandas.")
+    df = pd.read_csv(filename)
     conn = sqlite3.connect("database.db")
-    cursor = conn.cursor()
-    print("Connected successfully to SQL!")
-    table_name = "flight_data_sql"
-    df.to_sql(table_name, conn, if_exists="replace", index=False)
-    print(f"Data from {csv_file} has been successfully written to {table_name} in database.db.")
+    df.to_sql("flight_data_sql", conn, if_exists="replace", index=False)
     conn.close()
 
 def main():
