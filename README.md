@@ -1,4 +1,4 @@
-# HUVTSP ROVER - Flight Data Collector
+# HUVTSP Rove_x3t Internship Project - Flight Data Collector
 
 A Python script that collects flight data using the Amadeus API for multiple travel routes and stores the data in a CSV file. Optionally, you can export the CSV data to a local SQLite database.
 
