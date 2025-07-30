@@ -107,7 +107,7 @@ def calculate_cpm(item_type):
         print(f"The CPM for {extra_info['name']} is {cpm_value:.2f} cents per mile.")
 
 def main():
-    print("=========== Rove Miles Value Calculator =================") # Updated title for broader scope
+    print("=========== Rove Miles Value Calculator =================")
     redemptions = ["Flights", "Hotels", "Gift Cards"]
     print("Pick a redemption type to calculate its value: ")
     
@@ -115,9 +115,11 @@ def main():
         print(f"{index + 1}. {redemption_type}")
     
     try:
-        answer = int(input("--> "))
+        answer = int(input("Enter the number corresponding to your choice: --> "))
     except ValueError:
         print("Invalid input. Please enter a number corresponding to your choice.")
+        print()
+        main()
         return
 
     match answer:
@@ -130,4 +132,11 @@ def main():
         case _:
             print("Invalid choice. Please select a number between 1 and 3.")
 
-main()
+    try_again = input("Would you like to try again? (y/n) --> ")
+    if try_again == "y":
+        main()
+    else:
+        exit()
+
+if __name__ =="__main__":
+    main()
