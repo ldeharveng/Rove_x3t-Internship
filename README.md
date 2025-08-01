@@ -104,4 +104,18 @@ American Airlines       3     180.00
 - **On a testing environment, all retrieved data is not real. If real data is needed, applying for the production environment in Amadeus is necessary.**
 - The script is designed to be run multiple times safely (prevents duplicates in the CSV/SQL)
 - All times are in UTC as provided by Amadeus API
-- The code is now clean, efficient, and free of comments for maximum clarity and performance 
+- The code is now clean, efficient, and free of comments for maximum clarity and performance
+
+
+
+Algorithm.py
+Input
+
+Your Rove miles balance
+Flight search (origin, destination, date)
+
+Output
+
+Best redemption option (highest cents-per-mile value)
+Top 3 recommendations
+Analysis summary
