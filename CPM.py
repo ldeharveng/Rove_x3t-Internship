@@ -1,4 +1,7 @@
 def gift_cards():
+    ## This part is only run if the user selects gift cards in main()
+    ## All the gift card data:
+    
     gift_cards_data = {
         'giftcards.com': 4, 'visa gift card': 4, 'mastercard gift card': 4, 'airbnb gift card': 4,
         'doordash gift card': 4, 'uber gift card': 4, 'uber eats gift card': 4, 'starbucks gift card': 4,
@@ -85,6 +88,8 @@ def gift_cards():
             main()
 
 def calculate_cpm(item_type):
+    ## This part is only run if the user selects flights or hotels in main()
+    
     print(f"\n===== CPM Calculator for {item_type.capitalize()} =====")
     print()
     
@@ -132,6 +137,8 @@ def calculate_cpm(item_type):
         main()
 
 def main():
+    ## This is the main function that runs the program 
+
     start = input("\nstart or stop the program? ")
     if start == "start":
         print()
