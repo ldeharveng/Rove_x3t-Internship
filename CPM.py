@@ -65,18 +65,27 @@ def gift_cards():
         'sephora gift card': 4, "applebee's gift card": 4, 'amc theatres gift card': 4,
         'gift card outlets': 0.9
     }
-    print("====== Rove Miles Earned for Gift Cards ======") 
+    print("\n====== Rove Miles Earned for Gift Cards ======") 
     print()
-    user_input = input("Please enter the name of the gift card: ").lower()
+    user_input = input("Please enter the gift card name in the following format: ('store' gift card) ").lower()
 
     if user_input in gift_cards_data:
         gift_card_value = gift_cards_data[user_input]
-        print(f"When purchasing a {user_input.upper()}, you earn {gift_card_value} Rove miles per $1 spent.")
+        print(f"\nWhen purchasing a {user_input.upper()}, you earn {gift_card_value} Rove miles per $1 spent.")
+        try_again = input("Would you like to try another gift card? (y/n)")
+        if try_again == "y":
+            gift_cards()
+        else:
+            main()
     else:
-        print("We do not have that gift card in our system. Please try another one.")
+        try_again = input("We do not have that gift card in our system. Would you like to try another one? (y/n)")
+        if try_again == "y":
+            gift_cards()
+        else:
+            main()
 
 def calculate_cpm(item_type):
-    print(f"===== CPM Calculator for {item_type.capitalize()} =====")
+    print(f"\n===== CPM Calculator for {item_type.capitalize()} =====")
     print()
     
     extra_info = {}
@@ -92,11 +101,21 @@ def calculate_cpm(item_type):
         cash_price = float(input("Price total (in dollars): "))
         taxes = float(input("Taxes (in dollars): "))
     except ValueError:
-        print("Invalid input. Please enter numbers for miles, price, and taxes.")
+        print("\nInvalid input. Please enter numbers for miles, price, and taxes.")
+        try_again = input("Would you like to try inputting again? (y/n) ")
+        if try_again == "y":
+            calculate_cpm(item_type)
+        else:
+            main()
         return
 
     if miles_redeemed <= 0:
         print("Miles redeemed must be greater than zero.")
+        try_again = input("Would you like to try inputting again? (y/n) ")
+        if try_again == "y":
+            calculate_cpm(item_type)
+        else:
+            main()
         return
 
     cpm_value = ((cash_price - taxes) / miles_redeemed) * 100 # CPM in cents per mile
@@ -105,17 +124,25 @@ def calculate_cpm(item_type):
         print(f"The CPM for a flight from {extra_info['origin']} to {extra_info['destination']} on {extra_info['airline']} is {cpm_value:.2f} cents per mile.")
     elif item_type == "hotels":
         print(f"The CPM for {extra_info['name']} is {cpm_value:.2f} cents per mile.")
+    
+    try_again = input("Would you like to try again? (y/n) ")
+    if try_again == "y":
+        calculate_cpm(item_type)
+    else:
+        main()
 
 def main():
-    print("=========== Rove Miles Value Calculator =================")
+    
+        
+    print("\n=========== Rove Miles Value Calculator =================")
     redemptions = ["Flights", "Hotels", "Gift Cards"]
-    print("Pick a redemption type to calculate its value: ")
+    print("Pick a redemption type to calculate its value:")
     
     for index, redemption_type in enumerate(redemptions):
         print(f"{index + 1}. {redemption_type}")
     
     try:
-        answer = int(input("Enter the number corresponding to your choice: --> "))
+        answer = int(input("\nEnter the number corresponding to your choice: --> "))
     except ValueError:
         print("Invalid input. Please enter a number corresponding to your choice.")
         print()
@@ -130,7 +157,7 @@ def main():
         case 3:
             gift_cards()
         case _:
-            print("Invalid choice. Please select a number between 1 and 3.")
+            print("\nInvalid choice. Please select a number between 1 and 3.")
 
     try_again = input("Would you like to try again? (y/n) --> ")
     if try_again == "y":
