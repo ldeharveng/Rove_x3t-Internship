@@ -132,7 +132,11 @@ def calculate_cpm(item_type):
         main()
 
 def main():
-    
+    start = input("\nstart or stop the program? ")
+    if start == "start":
+        print()
+    else:
+        exit()
         
     print("\n=========== Rove Miles Value Calculator =================")
     redemptions = ["Flights", "Hotels", "Gift Cards"]
